@@ -1,0 +1,1 @@
+# bloc_clean_architecture_ecommerce_180824
