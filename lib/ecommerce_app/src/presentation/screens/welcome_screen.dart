@@ -38,16 +38,22 @@ class WelcomeScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SocialLoginButton(
-                        buttonType: SocialLoginButtonType.facebook,
-                        onPressed: () {}),
+                        buttonType: SocialLoginButtonType.twitter,
+                        onPressed: () {
+                          context.read<LoginBloc>().add(RequestTwitterLogin());
+                        }),
                     const Gap(10),
                     SocialLoginButton(
-                        buttonType: SocialLoginButtonType.twitter,
-                        onPressed: () {}),
+                        buttonType: SocialLoginButtonType.facebook,
+                        onPressed: () {
+                          context.read<LoginBloc>().add(RequestFacebookLogin());
+                        }),
                     const Gap(10),
                     SocialLoginButton(
                         buttonType: SocialLoginButtonType.google,
-                        onPressed: () {}),
+                        onPressed: () {
+                          context.read<LoginBloc>().add(RequestGoogleLogin());
+                        }),
                   ],
                 ),
               );
