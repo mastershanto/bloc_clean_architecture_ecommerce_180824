@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/repository/repository.dart';
@@ -15,7 +16,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<RequestGoogleLogin>((event, emit) async{
       try{
         emit(LoginLoading());
-        final user=await repository.signInWithGoogle();
+        final User? user=await repository.signInWithGoogle();
         debugPrint("User: ${user?.displayName}");
         emit(LoginSuccess());
       }catch(error){
@@ -26,7 +27,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<RequestFacebookLogin>((event, emit) async{
       try{
         emit(LoginLoading());
-        final user=await repository.signInWithFacebook();
+        final User? user=await repository.signInWithFacebook();
         debugPrint("User: ${user?.displayName}");
         emit(LoginSuccess());
       }catch(error){

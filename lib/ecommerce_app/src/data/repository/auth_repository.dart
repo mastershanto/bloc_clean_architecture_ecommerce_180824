@@ -1,3 +1,4 @@
+import "package:bloc_clean_architecture_ecommerce_180824/ecommerce_app/src/data/models/user_model.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:firebase_core/firebase_core.dart";
@@ -19,15 +20,17 @@ class AuthRepository{
         debugPrint("User canceled the signin process.");
         return null;
       }
-
       final GoogleSignInAuthentication googleSignInAuthentication =
       await googleSignIn.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
       );
-
       final UserCredential authResult =await _auth.signInWithCredential(credential);
       debugPrint('User: ${authResult.user?.email}');
+
+      if(authResult.user!=null){
+        createUserInDatabase(authResult.user!);
+      }
       return authResult.user;
     } catch (error) {
       debugPrint("Error signing in with Google: $error");
@@ -70,12 +73,76 @@ class AuthRepository{
         debugPrint("Twitter login failed: ${result.errorMessage}");
         return null;
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
     } catch (error) {
       debugPrint("Error signing in with Twitter: $error");
       return null;
     }
   }
+
   Future<void> createUserInDatabase (User user) async{
-      await _firestore.collection("users").doc(user.uid);
+    final data=UserModel(
+      userName:user.displayName,
+      email: user.email,
+      photoUrl: user.photoURL,
+      phoneNumber: user.phoneNumber,
+    );
+      await _firestore.collection("users").doc(user.uid).set(data.toJson()).then((value) {
+        debugPrint("User inserted: document ${user.uid}");
+      });
   }
 }

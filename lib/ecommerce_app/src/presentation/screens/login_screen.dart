@@ -19,8 +19,8 @@ class LoginScreen extends StatelessWidget {
             "Let's get started",
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
